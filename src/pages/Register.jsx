@@ -45,7 +45,7 @@ function Register() {
     if (Object.keys(errs).length === 0) {
       try {
         // Call backend API
-        const res = await fetch("https://loan-backend-uatr.onrender.com/api/auth/register", {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

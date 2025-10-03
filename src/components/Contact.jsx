@@ -36,7 +36,7 @@ function Contact() {
       setLoading(true);
       try {
         // ✅ Send POST request to backend (correct port 3001)
-        const response = await fetch("https://loan-backend-uatr.onrender.com/api/loan-application", {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/loan-application`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),

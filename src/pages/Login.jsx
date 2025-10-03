@@ -27,7 +27,7 @@ function Login() {
     if (Object.keys(errs).length === 0) {
       try {
         // Call backend login API
-        const res = await fetch("https://loan-backend-uatr.onrender.com/api/auth/login", {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
