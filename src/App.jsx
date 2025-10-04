@@ -8,10 +8,11 @@ import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Pages
-import Home from "./pages/Home";   // 👈 New Home page
+import Home from "./pages/Home";    // 👈 New Home page
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard"; // <-- Import admin dashboard
 
 // Custom hooks
 import useSmoothScroll from "./hooks/useSmoothScroll";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* <-- Add admin dashboard */}
       </Routes>
     </Router>
   );

@@ -28,22 +28,25 @@ function Login() {
       try {
         // Call backend login API
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-  }),
-});
-
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        });
         const data = await res.json();
 
         if (res.status === 200) {
-          // Save user info (optional)
+          // Save user info locally if needed
           localStorage.setItem("user", JSON.stringify(data.user));
 
-          // Redirect to dashboard
-          navigate("/dashboard");
+          // Redirect based on role
+          if (data.user.role === "admin") {
+            navigate("/admin-dashboard");
+          } else {
+            navigate("/dashboard");
+          }
         } else {
           alert(data.message);
         }
@@ -59,7 +62,6 @@ function Login() {
       <div className="container">
         <h2 className="section-title text-center">Login</h2>
         <p className="section-subtitle text-center">Welcome back! Please login to your account</p>
-
         <div className="row justify-content-center">
           <div className="col-lg-6">
             <div className="contact-form">
@@ -77,7 +79,6 @@ function Login() {
                   />
                   {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                 </div>
-
                 {/* Password */}
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">Password</label>
@@ -91,10 +92,8 @@ function Login() {
                   />
                   {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                 </div>
-
                 <button type="submit" className="btn btn-submit w-100">Login</button>
               </form>
-
               <p className="text-center mt-3">
                 Don’t have an account? <Link to="/register" className="text-warning">Register</Link>
               </p>
