@@ -6,6 +6,7 @@ function Contact() {
     email: "",
     phone: "",
     loanType: "",
+    requestedAmount: "",
     message: "",
   });
 
@@ -23,6 +24,9 @@ function Contact() {
     }
     if (!formData.phone.trim()) errs.phone = "Phone number is required";
     if (!formData.loanType) errs.loanType = "Please select a loan type";
+    if (!formData.requestedAmount || formData.requestedAmount <= 0) {
+      errs.requestedAmount = "Please enter a valid loan amount";
+    }
     return errs;
   };
 
@@ -35,11 +39,23 @@ function Contact() {
     if (Object.keys(errs).length === 0) {
       setLoading(true);
       try {
+        // Get logged-in user if exists
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        
+        // Prepare data to send
+        const dataToSend = {
+          ...formData,
+          requestedAmount: Number(formData.requestedAmount),
+          userId: user._id || null
+        };
+        
+        console.log("📤 Sending data to backend:", dataToSend);
+        
         // ✅ Send POST request to backend (correct port 3001)
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/loan-application`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(dataToSend),
         });
 
         const data = await response.json();
@@ -52,6 +68,7 @@ function Contact() {
             email: "",
             phone: "",
             loanType: "",
+            requestedAmount: "",
             message: "",
           });
         } else {
@@ -132,7 +149,7 @@ function Contact() {
             </div>
 
             {/* Loan Type */}
-            <div className="col-md-12">
+            <div className="col-md-6">
               <label className="form-label">Loan Type</label>
               <select
                 value={formData.loanType}
@@ -149,6 +166,24 @@ function Contact() {
               </select>
               {errors.loanType && (
                 <div className="invalid-feedback">{errors.loanType}</div>
+              )}
+            </div>
+
+            {/* Requested Loan Amount */}
+            <div className="col-md-6">
+              <label className="form-label">Requested Loan Amount (₹)</label>
+              <input
+                type="number"
+                placeholder="Enter loan amount"
+                value={formData.requestedAmount}
+                onChange={(e) =>
+                  setFormData({ ...formData, requestedAmount: e.target.value })
+                }
+                className={`form-control ${errors.requestedAmount ? "is-invalid" : ""}`}
+                min="0"
+              />
+              {errors.requestedAmount && (
+                <div className="invalid-feedback">{errors.requestedAmount}</div>
               )}
             </div>
 
