@@ -110,25 +110,27 @@ The **Loan Application System** is a comprehensive full-stack web application de
 
 ## 📸 Screenshots
 
-<div align="center">
-
 ### 🏠 Landing Page
-*Clean and professional landing page with call-to-action*
+![Landing Page](WhatsApp-Image-2025-10-19-at-12.18.45_20b8ed10.jpg)
+
+### 🌟 Why Choose Us / About Section
+![About Section](WhatsApp-Image-2025-10-19-at-12.18.47_905dec50.jpg)
+
+### 💼 Services Page
+![Services](WhatsApp-Image-2025-10-19-at-12.44.54_a55a3574.jpg)
 
 ### 📝 Application Form
-*User-friendly loan application form with real-time validation*
+![Application Form](WhatsApp-Image-2025-10-19-at-12.45.01_269e9c15.jpg)
 
-### 📊 User Dashboard
-*Track your loan application status*
+### 📊 EMI Estimator & Document Upload
+![EMI Estimator & Document Upload](WhatsApp-Image-2025-10-19-at-12.37.28_18496268.jpg)
 
-### 🔧 Admin Panel
-*Comprehensive admin dashboard for managing applications*
+### 👤 User Dashboard
+![User Dashboard 1](WhatsApp-Image-2025-10-19-at-12.51.57_b48a1bc2.jpg)
+![User Dashboard 2](WhatsApp-Image-2025-10-19-at-12.54.06_03bf0ba8.jpg)
 
-</div>
-
-> **Note:** Add screenshots to make your README even more attractive!
-
----
+### 🛡️ Admin Dashboard
+![Admin Dashboard](WhatsApp-Image-2025-10-19-at-12.54.06_03bf0ba8.jpg)
 
 ## 🚀 Getting Started
 
