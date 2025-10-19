@@ -52,7 +52,6 @@ The **Loan Application System** is a comprehensive full-stack web application de
 
 🔗 **Backend API:** [https://loan-backend-uatr.onrender.com](https://loan-backend-uatr.onrender.com)
 
-> **Note:** The backend may take 30-60 seconds to wake up on first request (free tier hosting).
 
 ---
 
