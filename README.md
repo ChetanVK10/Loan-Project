@@ -208,10 +208,6 @@ This frontend application is integrated with a Node.js/Express backend that hand
 - 🔒 **Data Validation** - Server-side validation for security
 - 📊 **API Endpoints** - RESTful API for all operations
 
-### Backend Repository
-
-🔗 **Backend Code:** [Coming Soon]
-
 ### API Endpoints
 
 | Method | Endpoint | Description |
