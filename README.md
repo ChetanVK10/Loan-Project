@@ -1,12 +1,48 @@
-# React + Vite
+Loan Application Website — Frontend
+A secure, user-friendly loan application system built with React and Vite, featuring role-based dashboards for users and admins, live form validations, and seamless integration with backend APIs.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Live Demo
+loan-project-chi.vercel.app
 
-Currently, two official plugins are available:
+🛠 Tech Stack
+React · Vite · JavaScript · CSS · API Integration · Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📦 Features
+User and Admin dashboards with separate access levels
 
-## Expanding the ESLint configuration
+Real-time form validation for loan applications
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Authentication and data fetching via backend APIs
+
+Responsive UI and modern design
+
+Easy deployment with Vercel
+
+🌐 Backend Integration
+This app is connected to a Node.js/Express backend (see Backend Repo) for authentication, data storage, and email notifications.
+
+📖 Getting Started
+Clone the repo:
+
+bash
+git clone https://github.com/ChetanVK10/Loan-Project.git
+Install dependencies:
+
+bash
+npm install
+Set environment variables:
+Create a .env file and add:
+
+text
+VITE_BACKEND_URL=https://loan-backend-uatr.onrender.com
+Start development server:
+
+bash
+npm run dev
+✨ Folder Structure
+/src — Main codebase (components, pages, styles, utils, etc.)
+
+/public — Static assets
+
+📚 License
+MIT
