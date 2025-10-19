@@ -111,26 +111,23 @@ The **Loan Application System** is a comprehensive full-stack web application de
 ## 📸 Screenshots
 
 ### 🏠 Landing Page
-![Landing Page](WhatsApp-Image-2025-10-19-at-12.18.45_20b8ed10.jpg)
+![Landing Page](Home.jpg)
 
-### 🌟 Why Choose Us / About Section
-![About Section](WhatsApp-Image-2025-10-19-at-12.18.47_905dec50.jpg)
+### 🌟 About Section
+![About Section](About.jpg)
 
 ### 💼 Services Page
-![Services](WhatsApp-Image-2025-10-19-at-12.44.54_a55a3574.jpg)
+![Services](Services.jpg)
 
 ### 📝 Application Form
-![Application Form](WhatsApp-Image-2025-10-19-at-12.45.01_269e9c15.jpg)
-
-### 📊 EMI Estimator & Document Upload
-![EMI Estimator & Document Upload](WhatsApp-Image-2025-10-19-at-12.37.28_18496268.jpg)
+![Application Form](Application Form.jpg)
 
 ### 👤 User Dashboard
-![User Dashboard 1](WhatsApp-Image-2025-10-19-at-12.51.57_b48a1bc2.jpg)
-![User Dashboard 2](WhatsApp-Image-2025-10-19-at-12.54.06_03bf0ba8.jpg)
+![User Dashboard 1](User Dashboard1 .jpg)
+![User Dashboard 2](User Dashboard 2.jpg)
 
 ### 🛡️ Admin Dashboard
-![Admin Dashboard](WhatsApp-Image-2025-10-19-at-12.54.06_03bf0ba8.jpg)
+![Admin Dashboard](Admin Dashboard1.jpg)
 
 ## 🚀 Getting Started
 
