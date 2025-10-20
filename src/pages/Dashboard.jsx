@@ -77,21 +77,31 @@ function Dashboard() {
   }
 
   return (
-    <section className="contact" style={{ minHeight: "100vh", paddingTop: "100px", paddingBottom: "50px" }}>
+    <section style={{ minHeight: "100vh", paddingTop: "100px", paddingBottom: "50px", background: "linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%)" }}>
       <div className="container">
         {/* Header */}
-        <div className="row mb-4">
+        <div className="row mb-4 align-items-center">
           <div className="col-md-8">
-            <h2 className="fw-bold mb-2">
-              <i className="fas fa-user-circle me-2 text-primary"></i>
+            <h2 className="fw-bold mb-2" style={{ fontSize: "2.5rem", color: "#2C2C2C" }}>
+              <i className="fas fa-user-circle me-3" style={{ color: "#FFD700" }}></i>
               Welcome, {user?.name || "User"}!
             </h2>
-            <p className="text-muted">Track and manage your loan applications</p>
+            <p className="text-muted" style={{ fontSize: "1.1rem" }}>Track and manage your loan applications effortlessly</p>
           </div>
           <div className="col-md-4 text-md-end">
             <button
-              className="btn btn-outline-danger"
+              className="btn btn-danger"
               onClick={handleLogout}
+              style={{
+                borderRadius: "50px",
+                padding: "12px 30px",
+                fontWeight: "600",
+                boxShadow: "0 4px 15px rgba(220, 53, 69, 0.3)",
+                border: "none",
+                transition: "all 0.3s ease"
+              }}
+              onMouseEnter={(e) => e.target.style.transform = "translateY(-2px)"}
+              onMouseLeave={(e) => e.target.style.transform = "translateY(0)"}
             >
               <i className="fas fa-sign-out-alt me-2"></i>Logout
             </button>
@@ -99,42 +109,78 @@ function Dashboard() {
         </div>
 
         {/* Quick Stats */}
-        <div className="row g-3 mb-4">
+        <div className="row g-4 mb-5">
           <div className="col-md-3">
-            <div className="card border-0 shadow-sm bg-primary text-white">
-              <div className="card-body text-center">
-                <h3 className="mb-0">{applications.length}</h3>
-                <small>Total Applications</small>
+            <div className="card border-0 h-100" style={{
+              borderRadius: "20px",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              color: "white",
+              transition: "all 0.3s ease"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+              <div className="card-body text-center p-4">
+                <i className="fas fa-file-invoice fa-3x mb-3" style={{ opacity: "0.9" }}></i>
+                <h3 className="mb-2 fw-bold" style={{ fontSize: "2.5rem" }}>{applications.length}</h3>
+                <p className="mb-0" style={{ fontSize: "0.95rem", opacity: "0.9" }}>Total Applications</p>
               </div>
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card border-0 shadow-sm bg-warning text-dark">
-              <div className="card-body text-center">
-                <h3 className="mb-0">
+            <div className="card border-0 h-100" style={{
+              borderRadius: "20px",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+              background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+              color: "white",
+              transition: "all 0.3s ease"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+              <div className="card-body text-center p-4">
+                <i className="fas fa-hourglass-half fa-3x mb-3" style={{ opacity: "0.9" }}></i>
+                <h3 className="mb-2 fw-bold" style={{ fontSize: "2.5rem" }}>
                   {applications.filter(a => a.loanStatus === 'Pending').length}
                 </h3>
-                <small>Pending</small>
+                <p className="mb-0" style={{ fontSize: "0.95rem", opacity: "0.9" }}>Pending</p>
               </div>
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card border-0 shadow-sm bg-success text-white">
-              <div className="card-body text-center">
-                <h3 className="mb-0">
+            <div className="card border-0 h-100" style={{
+              borderRadius: "20px",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+              background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+              color: "white",
+              transition: "all 0.3s ease"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+              <div className="card-body text-center p-4">
+                <i className="fas fa-check-circle fa-3x mb-3" style={{ opacity: "0.9" }}></i>
+                <h3 className="mb-2 fw-bold" style={{ fontSize: "2.5rem" }}>
                   {applications.filter(a => a.loanStatus === 'Approved').length}
                 </h3>
-                <small>Approved</small>
+                <p className="mb-0" style={{ fontSize: "0.95rem", opacity: "0.9" }}>Approved</p>
               </div>
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card border-0 shadow-sm bg-danger text-white">
-              <div className="card-body text-center">
-                <h3 className="mb-0">
+            <div className="card border-0 h-100" style={{
+              borderRadius: "20px",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+              background: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+              color: "white",
+              transition: "all 0.3s ease"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+              <div className="card-body text-center p-4">
+                <i className="fas fa-times-circle fa-3x mb-3" style={{ opacity: "0.9" }}></i>
+                <h3 className="mb-2 fw-bold" style={{ fontSize: "2.5rem" }}>
                   {applications.filter(a => a.loanStatus === 'Rejected').length}
                 </h3>
-                <small>Rejected</small>
+                <p className="mb-0" style={{ fontSize: "0.95rem", opacity: "0.9" }}>Rejected</p>
               </div>
             </div>
           </div>

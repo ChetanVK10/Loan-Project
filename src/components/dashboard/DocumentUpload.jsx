@@ -100,13 +100,18 @@ function DocumentUpload({ application, onUpdate }) {
   if (!application) return null;
 
   return (
-    <div className="card shadow-sm mb-4">
-      <div className="card-header bg-info text-white">
-        <h5 className="mb-0"><i className="fas fa-file-upload me-2"></i>Document Upload</h5>
+    <div className="card border-0 mb-4" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08)", overflow: "hidden" }}>
+      <div className="card-header text-white p-4" style={{
+        background: "linear-gradient(135deg, #2C2C2C 0%, #1A1A1A 100%)",
+        borderBottom: "none"
+      }}>
+        <h5 className="mb-0 fw-bold" style={{ fontSize: "1.3rem" }}>
+          <i className="fas fa-file-upload me-2" style={{ color: "#FFD700" }}></i>Document Upload
+        </h5>
       </div>
-      <div className="card-body">
+      <div className="card-body p-4">
         {isReadOnly && (
-          <div className="alert alert-warning mb-3">
+          <div className="alert mb-3" style={{ background: "#fff3cd", border: "1px solid #ffc107", borderRadius: "12px", color: "#856404" }}>
             <i className="fas fa-lock me-2"></i>
             Document upload is disabled. Application has been {application.loanStatus.toLowerCase()}.
           </div>
@@ -116,12 +121,15 @@ function DocumentUpload({ application, onUpdate }) {
           <form onSubmit={handleUpload} className="mb-4">
             <div className="row g-3">
               <div className="col-md-3">
-                <label className="form-label fw-bold">Document Type</label>
+                <label className="form-label fw-semibold mb-2" style={{ color: "#2C2C2C" }}>
+                  <i className="fas fa-tag me-2" style={{ color: "#FFD700" }}></i>Document Type
+                </label>
                 <select
                   className="form-control"
                   value={documentType}
                   onChange={(e) => setDocumentType(e.target.value)}
                   required
+                  style={{ borderRadius: "12px", border: "2px solid #e9ecef", padding: "12px 15px" }}
                 >
                   <option value="">Select type</option>
                   {documentTypes.map(type => (
@@ -130,7 +138,9 @@ function DocumentUpload({ application, onUpdate }) {
                 </select>
               </div>
               <div className="col-md-6">
-                <label className="form-label fw-bold">Select File</label>
+                <label className="form-label fw-semibold mb-2" style={{ color: "#2C2C2C" }}>
+                  <i className="fas fa-file me-2" style={{ color: "#FFD700" }}></i>Select File
+                </label>
                 <input
                   type="file"
                   id="fileInput"
@@ -138,6 +148,7 @@ function DocumentUpload({ application, onUpdate }) {
                   onChange={handleFileSelect}
                   accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
                   required
+                  style={{ borderRadius: "12px", border: "2px solid #e9ecef", padding: "12px 15px" }}
                 />
                 <small className="text-muted">
                   Accepted: PDF, JPG, PNG, DOC (Max 5MB)
@@ -146,8 +157,17 @@ function DocumentUpload({ application, onUpdate }) {
               <div className="col-md-3 d-flex align-items-end">
                 <button
                   type="submit"
-                  className="btn btn-primary w-100"
+                  className="btn w-100"
                   disabled={uploading}
+                  style={{
+                    background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                    border: "none",
+                    borderRadius: "50px",
+                    padding: "12px 20px",
+                    fontWeight: "600",
+                    color: "#2C2C2C",
+                    boxShadow: "0 5px 15px rgba(255, 215, 0, 0.3)"
+                  }}
                 >
                   {uploading ? (
                     <>
@@ -164,38 +184,43 @@ function DocumentUpload({ application, onUpdate }) {
           </form>
         )}
 
-        <h6 className="mb-3">Uploaded Documents</h6>
+        <h6 className="mb-3 fw-bold" style={{ color: "#2C2C2C" }}>
+          <i className="fas fa-folder-open me-2" style={{ color: "#FFD700" }}></i>Uploaded Documents
+        </h6>
         {application.documents && application.documents.length > 0 ? (
           <div className="table-responsive">
-            <table className="table table-hover">
-              <thead className="table-light">
+            <table className="table table-hover" style={{ fontSize: "0.95rem" }}>
+              <thead style={{ background: "#f8f9fa", borderBottom: "2px solid #e9ecef" }}>
                 <tr>
-                  <th>Document Type</th>
-                  <th>File Name</th>
-                  <th>Upload Date</th>
-                  {!isReadOnly && <th>Actions</th>}
+                  <th className="py-3 fw-semibold" style={{ color: "#2C2C2C" }}>Document Type</th>
+                  <th className="py-3 fw-semibold" style={{ color: "#2C2C2C" }}>File Name</th>
+                  <th className="py-3 fw-semibold" style={{ color: "#2C2C2C" }}>Upload Date</th>
+                  {!isReadOnly && <th className="py-3 fw-semibold" style={{ color: "#2C2C2C" }}>Actions</th>}
                 </tr>
               </thead>
               <tbody>
                 {application.documents.map((doc) => (
-                  <tr key={doc._id}>
-                    <td>
-                      <i className="fas fa-file-alt me-2 text-primary"></i>
-                      {doc.documentType}
+                  <tr key={doc._id} style={{ borderBottom: "1px solid #f1f3f5" }}>
+                    <td className="py-3">
+                      <i className="fas fa-file-alt me-2" style={{ color: "#667eea" }}></i>
+                      <strong style={{ color: "#2C2C2C" }}>{doc.documentType}</strong>
                     </td>
-                    <td>{doc.fileName}</td>
-                    <td>
-                      {new Date(doc.uploadedAt).toLocaleDateString('en-IN', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      })}
+                    <td className="py-3">{doc.fileName}</td>
+                    <td className="py-3">
+                      <small>
+                        {new Date(doc.uploadedAt).toLocaleDateString('en-IN', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })}
+                      </small>
                     </td>
                     {!isReadOnly && (
-                      <td>
+                      <td className="py-3">
                         <button
                           className="btn btn-sm btn-danger"
                           onClick={() => handleDelete(doc._id)}
+                          style={{ borderRadius: "8px", padding: "6px 12px" }}
                         >
                           <i className="fas fa-trash"></i> Delete
                         </button>
@@ -207,15 +232,15 @@ function DocumentUpload({ application, onUpdate }) {
             </table>
           </div>
         ) : (
-          <div className="text-center text-muted py-4">
-            <i className="fas fa-folder-open fa-3x mb-3"></i>
-            <p>No documents uploaded yet.</p>
+          <div className="text-center py-5">
+            <i className="fas fa-folder-open fa-4x mb-3" style={{ color: "#FFD700", opacity: "0.5" }}></i>
+            <p className="text-muted" style={{ fontSize: "1.1rem" }}>No documents uploaded yet.</p>
           </div>
         )}
 
-        <div className="mt-3 p-3 bg-light rounded">
-          <small className="text-muted">
-            <i className="fas fa-info-circle me-2"></i>
+        <div className="mt-4 p-3" style={{ background: "#dbeafe", borderRadius: "12px", borderLeft: "4px solid #3b82f6" }}>
+          <small style={{ color: "#1e40af" }}>
+            <i className="fas fa-info-circle me-2" style={{ color: "#3b82f6" }}></i>
             <strong>Required Documents:</strong> Payslip (last 3 months), ID Proof (Aadhaar/PAN), 
             Bank Statement (last 6 months), Address Proof
           </small>
