@@ -122,8 +122,8 @@ The **Loan Application System** is a comprehensive full-stack web application de
 ![Application Form](Application-Form.jpg)
 
 ### 👤 User Dashboard
-![User Dashboard 1](User-Dashboard1.jpg)
-![User Dashboard 2](User-Dashboard2.jpg)
+![User Dashboard 1](User-Dashboard.jpg)
+![User Dashboard 2](User-Dashboard0.jpg)
 
 ### 🛡️ Admin Dashboard
 ![Admin Dashboard](Admin.jpg)
