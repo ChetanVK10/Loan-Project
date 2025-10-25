@@ -38,7 +38,10 @@ function Login() {
         const data = await res.json();
 
         if (res.status === 200) {
-          // Save user info locally if needed
+          // Save JWT token in localStorage
+          localStorage.setItem("token", data.token);
+          
+          // Save user info in localStorage
           localStorage.setItem("user", JSON.stringify(data.user));
 
           // Redirect based on role

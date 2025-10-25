@@ -31,8 +31,17 @@ function Dashboard() {
   const fetchApplications = async (userData) => {
     setLoading(true);
     try {
+      // Get JWT token from localStorage
+      const token = localStorage.getItem("token");
+      
+      // Send token in Authorization header
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/dashboard/user/${userData._id}?email=${userData.email}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/dashboard/user/${userData._id}?email=${userData.email}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${token}` // JWT token in Bearer format
+          }
+        }
       );
       const data = await response.json();
       
@@ -57,6 +66,8 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
+    // Remove both token and user data
+    localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/login");
   };

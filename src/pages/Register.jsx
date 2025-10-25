@@ -59,10 +59,22 @@ function Register() {
 
         if (res.status === 201) {
           alert("✅ Registered successfully!");
+          
+          // Save JWT token in localStorage
+          localStorage.setItem("token", data.token);
+          
+          // Save user info in localStorage
+          localStorage.setItem("user", JSON.stringify(data.user));
+          
+          // Reset form
           setFormData({ name: "", email: "", password: "", confirmPassword: "" });
 
-          // Redirect to login page
-          navigate("/login");
+          // Auto-login: Redirect to dashboard based on role
+          if (data.user.role === "admin") {
+            navigate("/admin-dashboard");
+          } else {
+            navigate("/dashboard");
+          }
         } else {
           alert(data.message); // e.g., User already exists
         }
