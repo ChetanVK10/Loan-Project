@@ -16,7 +16,29 @@ function AdminDashboard() {
   const [tenure, setTenure] = useState('');
   const [interestRate, setInterestRate] = useState('');
   const [rejectionReason, setRejectionReason] = useState('');
+   //step 1
+  const authFetch = async (url, options = {}) => {
+  const token = localStorage.getItem("token");
 
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      ...(options.headers || {})
+    }
+  });
+
+  if (res.status === 401 || res.status === 403) {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
+    throw new Error("Unauthorized");
+  }
+
+  return res.json();
+};
+  //
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user.role !== "admin") {
@@ -30,17 +52,20 @@ function AdminDashboard() {
     setLoading(true);
     try {
       // Fetch statistics
-      const statsRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/statistics`);
-      const statsData = await statsRes.json();
+      //step 2
+      const statsData = await authFetch(
+  `${import.meta.env.VITE_BACKEND_URL}/api/admin/statistics`
+);
+      //step 2
       if (statsData.success) setStats(statsData.statistics);
 
       // Fetch applications with filter
       const appsUrl = filterStatus 
         ? `${import.meta.env.VITE_BACKEND_URL}/api/admin/applications?status=${filterStatus}`
         : `${import.meta.env.VITE_BACKEND_URL}/api/admin/applications`;
+      //step 3
+      const appsData = await authFetch(appsUrl);
       
-      const appsRes = await fetch(appsUrl);
-      const appsData = await appsRes.json();
       if (appsData.success) setApplications(appsData.applications);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -78,20 +103,19 @@ function AdminDashboard() {
     }
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/application/${selectedApp._id}/approve`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            approvedAmount: Number(approvedAmount),
-            tenure: Number(tenure),
-            interestRate: Number(interestRate)
-          })
-        }
-      );
-
-      const data = await response.json();
+      //step 3
+      const data = await authFetch(
+  `${import.meta.env.VITE_BACKEND_URL}/api/admin/application/${selectedApp._id}/approve`,
+  {
+    method: "PUT",
+    body: JSON.stringify({
+      approvedAmount: Number(approvedAmount),
+      tenure: Number(tenure),
+      interestRate: Number(interestRate)
+    })
+  }
+);
+  //step 3
       if (data.success) {
         alert('✅ Loan approved successfully!');
         setShowModal(false);
@@ -107,16 +131,16 @@ function AdminDashboard() {
 
   const handleReject = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/application/${selectedApp._id}/reject`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ reason: rejectionReason })
-        }
-      );
+      //step 4
+      const data = await authFetch(
+  `${import.meta.env.VITE_BACKEND_URL}/api/admin/application/${selectedApp._id}/reject`,
+  {
+    method: "PUT",
+    body: JSON.stringify({ reason: rejectionReason })
+  }
+);
+      //step 4
 
-      const data = await response.json();
       if (data.success) {
         alert('✅ Loan rejected');
         setShowModal(false);
