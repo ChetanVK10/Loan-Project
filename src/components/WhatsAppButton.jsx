@@ -1,6 +1,6 @@
 // src/components/WhatsAppButton.jsx
 import React from 'react';
-import { FaWhatsapp } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa";
 import { APP_CONFIG } from '../config/app';
 
 const WhatsAppButton = () => {
