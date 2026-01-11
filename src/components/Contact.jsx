@@ -61,17 +61,29 @@ function Contact() {
         const data = await response.json();
 
         if (data.success) {
-          alert("✅ Thank you for your application! We'll contact you soon.");
-          // ✅ Reset form after successful submission
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            loanType: "",
-            requestedAmount: "",
-            message: "",
-          });
-        } else {
+
+  // ✅ Store application info for WhatsApp stage detection
+  localStorage.setItem(
+    "loanApplication",
+    JSON.stringify({
+      applicationId: data.data?._id || data.data?.id,
+      loanType: formData.loanType,
+    })
+  );
+
+  alert("✅ Thank you for your application! We'll contact you soon.");
+
+  // ✅ Reset form after successful submission
+  setFormData({
+    name: "",
+    email: "",
+    phone: "",
+    loanType: "",
+    requestedAmount: "",
+    message: "",
+  });
+}
+else {
           alert(`❌ Error: ${data.message}`);
         }
       } catch (err) {

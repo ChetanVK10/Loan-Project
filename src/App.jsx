@@ -6,6 +6,7 @@ import "./style.css";
 // Components
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
+import WhatsAppButton from './components/WhatsAppButton';
 
 // Pages
 import Home from "./pages/Home";    // 👈 New Home page
@@ -38,6 +39,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* <-- Add admin dashboard */}
       </Routes>
+      <WhatsAppButton />
     </Router>
   );
 }

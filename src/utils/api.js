@@ -11,6 +11,12 @@ const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
  * @param {object} options - Fetch options (method, body, etc.)
  * @returns {Promise} - Response data
  */
+
+// src/config/app.js
+export const APP_CONFIG = {
+  WHATSAPP_NUMBER: import.meta.env.VITE_WHATSAPP_NUMBER || '919703354487',
+};
+
 export const apiCall = async (endpoint, options = {}) => {
   // Get JWT token from localStorage
   const token = localStorage.getItem("token");
