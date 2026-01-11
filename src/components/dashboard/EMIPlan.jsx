@@ -136,7 +136,7 @@ function EMIPlan({ application, onUpdate }) {
               <i className="fas fa-briefcase me-2" style={{ color: "#FFD700" }}></i>Loan Type
             </label>
             <select
-              className="form-control"
+              className="form-select"
               value={selectedLoanType}
               onChange={(e) => {
                 setSelectedLoanType(e.target.value);

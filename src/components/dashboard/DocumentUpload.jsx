@@ -14,88 +14,131 @@ function DocumentUpload({ application, onUpdate }) {
     'Address Proof',
     'Other'
   ];
-
+///file size
   const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      console.log('📎 File selected:', file.name, 'Size:', file.size, 'bytes');
-    }
-  };
+  const file = e.target.files[0];
+  if (!file) return;
+
+  // 1️⃣ File size check (5MB max)
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+  if (file.size > MAX_SIZE) {
+    alert("File size must be under 5MB");
+    e.target.value = "";
+    return;
+  }
+
+  // 2️⃣ File type check (extra safety)
+  const allowedTypes = [
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("Invalid file type. Please upload PDF, JPG, PNG, or DOC.");
+    e.target.value = "";
+    return;
+  }
+
+  // 3️⃣ All good
+  setSelectedFile(file);
+  console.log('📎 File selected:', file.name, 'Size:', file.size, 'bytes');
+};
+
 
   const handleUpload = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!documentType) {
-      alert('Please select a document type');
-      return;
-    }
+  if (!documentType) {
+    alert('Please select a document type');
+    return;
+  }
 
-    if (!selectedFile) {
-      alert('Please select a file to upload');
-      return;
-    }
+  if (!selectedFile) {
+    alert('Please select a file to upload');
+    return;
+  }
 
-    setUploading(true);
-    try {
-      // In a real application, you would upload the file to cloud storage (AWS S3, Cloudinary, etc.)
-      // For now, we're just storing the file name and metadata
-      
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/dashboard/application/${application._id}/document`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            documentType,
-            fileName: selectedFile.name,
-            fileUrl: '#' + selectedFile.name // Placeholder - in production, this would be the cloud storage URL
-          })
-        }
-      );
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Authentication error. Please login again.");
+    return;
+  }
 
-      const data = await response.json();
-      if (data.success) {
-        alert('✅ Document uploaded successfully!');
-        setDocumentType('');
-        setSelectedFile(null);
-        // Reset file input
-        document.getElementById('fileInput').value = '';
-        if (onUpdate) onUpdate();
-      } else {
-        alert(`❌ Error: ${data.message}`);
+  setUploading(true);
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/dashboard/application/${application._id}/document`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   // ✅ THIS WAS MISSING
+        },
+        body: JSON.stringify({
+          documentType,
+          fileName: selectedFile.name,
+          fileUrl: '#' + selectedFile.name
+        })
       }
-    } catch (error) {
-      console.error('Error uploading document:', error);
-      alert('⚠️ Failed to upload. Please try again.');
-    } finally {
-      setUploading(false);
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert('✅ Document uploaded successfully!');
+      setDocumentType('');
+      setSelectedFile(null);
+      document.getElementById('fileInput').value = '';
+      if (onUpdate) onUpdate();
+    } else {
+      alert(`❌ Error: ${data.message}`);
     }
-  };
+  } catch (error) {
+    console.error('Error uploading document:', error);
+    alert('⚠️ Failed to upload. Please try again.');
+  } finally {
+    setUploading(false);
+  }
+};
+
 
   const handleDelete = async (docId) => {
-    if (!confirm('Are you sure you want to delete this document?')) return;
+  if (!confirm('Are you sure you want to delete this document?')) return;
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/dashboard/application/${application._id}/document/${docId}`,
-        {
-          method: 'DELETE'
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Authentication error. Please login again.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/dashboard/application/${application._id}/document/${docId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`   // ✅ REQUIRED
         }
-      );
-
-      const data = await response.json();
-      if (data.success) {
-        alert('✅ Document deleted successfully!');
-        if (onUpdate) onUpdate();
-      } else {
-        alert(`❌ Error: ${data.message}`);
       }
-    } catch (error) {
-      console.error('Error deleting document:', error);
-      alert('⚠️ Failed to delete. Please try again.');
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert('✅ Document deleted successfully!');
+      if (onUpdate) onUpdate();
+    } else {
+      alert(`❌ Error: ${data.message}`);
     }
-  };
+  } catch (error) {
+    console.error('Error deleting document:', error);
+    alert('⚠️ Failed to delete. Please try again.');
+  }
+};
+
 
   if (!application) return null;
 
@@ -125,7 +168,7 @@ function DocumentUpload({ application, onUpdate }) {
                   <i className="fas fa-tag me-2" style={{ color: "#FFD700" }}></i>Document Type
                 </label>
                 <select
-                  className="form-control"
+                  className="form-select"
                   value={documentType}
                   onChange={(e) => setDocumentType(e.target.value)}
                   required
@@ -141,15 +184,49 @@ function DocumentUpload({ application, onUpdate }) {
                 <label className="form-label fw-semibold mb-2" style={{ color: "#2C2C2C" }}>
                   <i className="fas fa-file me-2" style={{ color: "#FFD700" }}></i>Select File
                 </label>
-                <input
-                  type="file"
-                  id="fileInput"
-                  className="form-control"
-                  onChange={handleFileSelect}
-                  accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                  required
-                  style={{ borderRadius: "12px", border: "2px solid #e9ecef", padding: "12px 15px" }}
-                />
+                <div className="position-relative">
+  <input
+    type="file"
+    id="fileInput"
+    className="form-control"
+    onChange={handleFileSelect}
+    accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+    required
+    style={{
+      borderRadius: "12px",
+      border: "2px solid #e9ecef",
+      padding: "12px 40px 12px 15px"
+    }}
+  />
+
+  {/* ❌ Clear selected file */}
+  {selectedFile && (
+    <button
+      type="button"
+      onClick={() => {
+        setSelectedFile(null);
+        document.getElementById("fileInput").value = "";
+      }}
+      className="btn btn-sm position-absolute"
+      style={{
+        top: "50%",
+        right: "10px",
+        transform: "translateY(-50%)",
+        borderRadius: "50%",
+        background: "#dc3545",
+        color: "white",
+        width: "26px",
+        height: "26px",
+        padding: "0",
+        lineHeight: "1"
+      }}
+      title="Remove selected file"
+    >
+      ×
+    </button>
+  )}
+</div>
+
                 <small className="text-muted">
                   Accepted: PDF, JPG, PNG, DOC (Max 5MB)
                 </small>
