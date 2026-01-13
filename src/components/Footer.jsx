@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -69,7 +70,8 @@ function Footer() {
               </li>
               <li data-testid="contact-email">
                 <i className="fas fa-envelope me-2"></i>
-                amarnathmyneedi.com
+                <a href="mailto:amarnath@myneedi.com">amarnath@myneedi.com</a>
+
               </li>
             </ul>
           </div>
@@ -78,8 +80,13 @@ function Footer() {
         {/* Copyright */}
         <div className="copyright">
           <p data-testid="copyright">
-            &copy; 2025 LoanPro Consulting. All rights reserved. | Privacy Policy | Terms of Service
+        &copy; 2026 Loan Consulting. All rights reserved. |{" "}
+        <Link to="/privacy-policy">Privacy Policy</Link> |{" "}
+        <Link to="/terms-and-conditions">Terms & Conditions</Link> |{" "}
+        <Link to="/disclaimer">Disclaimer</Link>
+
           </p>
+
         </div>
       </div>
     </footer>

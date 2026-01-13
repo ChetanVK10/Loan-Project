@@ -800,3 +800,78 @@ button:focus,
     color: black !important;
   }
 }
+
+/* =========================
+   Legal Pages Styling
+   ========================= */
+
+.legal-page {
+  background: var(--text-light);
+  padding: 100px 0;
+}
+
+.legal-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 3rem 3.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 15px 35px var(--shadow-light);
+}
+
+.legal-container h1 {
+  color: var(--primary-dark);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.legal-container .updated-date {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.legal-container h4 {
+  color: var(--accent-yellow);
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.legal-container p {
+  color: var(--text-gray);
+  line-height: 1.8;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.legal-container ul {
+  margin-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.legal-container ul li {
+  color: var(--text-gray);
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+/* small highlight line */
+.legal-divider {
+  height: 3px;
+  width: 60px;
+  background: var(--accent-yellow);
+  margin: 1rem 0 2rem 0;
+  border-radius: 2px;
+}
+
+/* responsive */
+@media (max-width: 767.98px) {
+  .legal-container {
+    padding: 2rem 1.8rem;
+  }
+
+  .legal-container h1 {
+    font-size: 2rem;
+  }
+}
