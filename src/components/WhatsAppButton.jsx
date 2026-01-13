@@ -1,6 +1,7 @@
 // src/components/WhatsAppButton.jsx
 import React from "react";
-import { APP_CONFIG } from "../config/app";
+import { APP_CONFIG } from "../config/app.js";
+
 
 const WhatsAppButton = () => {
   const getApplicationData = () => {
