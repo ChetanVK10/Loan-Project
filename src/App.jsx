@@ -7,6 +7,10 @@ import "./style.css";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
 import WhatsAppButton from './components/WhatsAppButton';
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
+import Disclaimer from "./pages/Disclaimer";
+
 
 // Pages
 import Home from "./pages/Home";    // 👈 New Home page
