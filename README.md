@@ -48,7 +48,7 @@ The **Loan Application System** is a comprehensive full-stack web application de
 
 ## 🌐 Live Demo
 
-🔗 **Frontend:** [https://loan-project-chi.vercel.app](https://loan-project-chi.vercel.app)
+🔗 **Frontend:** [https://loan-project-chi.vercel.app](https://loan-project-iota.vercel.app/)
 
 🔗 **Backend API:** [https://loan-backend-uatr.onrender.com](https://loan-backend-uatr.onrender.com)
 
